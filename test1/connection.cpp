@@ -15,7 +15,7 @@
 
 namespace http {
 	namespace server2 {
-
+		// dfgjsergler
 		connection::connection(boost::asio::io_service& io_service,
 			request_handler& handler)
 			: socket_(io_service),
