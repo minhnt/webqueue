@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="http::server::connection_manager">
+    <Position X="2.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgABAAAAAAAAAgAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>connection_manager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="http::server::connection">
+    <Position X="0.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAgAAABAAAgAACgAAABAAEQAgAAQAg=</HashCode>
+      <FileName>connection.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="http::server::request_handler">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAACAAAAAAAAAAAAAAAAAAAAAAAAAgBAAAAAAA=</HashCode>
+      <FileName>request_handler.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="http::server::server">
+    <Position X="4.5" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAiAAAAAAQAAAAAABQAAAAACAAAAACACAAAAAAAo=</HashCode>
+      <FileName>server.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="http::server::request_parser">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="http::server::request_parser::state" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>request_parser.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAAAAIAAAAAAAAAAAAACAAAQFAAAQAAAAIAA=</HashCode>
+      <FileName>request_parser.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="http::server::mime_types::mapping">
+    <Position X="3.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>mime_types.cpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="http::server::request">
+    <Position X="7.75" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACACAAAIAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>request.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="http::server::reply">
+    <Position X="7.75" Y="4.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="http::server::reply::status_type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>reply.hpp</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQCAAABAAAAAAAAAAIIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>reply.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="http::server::header">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEACAAAAAAAAAAAAA=</HashCode>
+      <FileName>header.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="http::server::connection_ptr" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>connection.hpp</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
