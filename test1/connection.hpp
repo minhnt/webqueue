@@ -23,7 +23,7 @@
 
 namespace http {
 	namespace server2 {
-		/// Hello sdfds
+		/// Hello sdfds sdfgvdfgdggsdfg
 		/// Represents a single connection from a client.
 		class connection
 			: public boost::enable_shared_from_this<connection>,
