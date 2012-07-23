@@ -12,6 +12,7 @@
 #include <vector>
 #include <boost/bind.hpp>
 #include "request_handler.hpp"
+#include "request.cpp"
 
 //this comment has been added by KhanhHH 11h21 
 namespace http {
@@ -40,14 +41,23 @@ namespace http {
 		void connection::handle_read(const boost::system::error_code& e,
 			std::size_t bytes_transferred)
 		{
+			std::string str_connection_value;
 			if (!e)
 			{
 				boost::tribool result;
 				boost::tie(result, boost::tuples::ignore) = request_parser_.parse(
 					request_, buffer_.data(), buffer_.data() + bytes_transferred);
 
+				/// if parse successfully
 				if (result)
 				{
+					if(request_.get_header_value(request_string::connection_header, str_connection_value)
+						&& str_connection_value.compare(request_string::connection_value))
+					{
+						/// start timer.
+						/// stop connection after 20s if there isn't any connection during this time.
+
+					}
 					request_handler_.handle_request(request_, reply_);
 					boost::asio::async_write(socket_, reply_.to_buffers(),
 						boost::bind(&connection::handle_write, shared_from_this(),

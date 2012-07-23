@@ -26,6 +26,9 @@ namespace http {
 			int http_version_major;
 			int http_version_minor;
 			std::vector<header> headers;
+
+			/// get value of header
+			bool get_header_value(const std::string header_name, std::string& header_value);
 		};
 
 	} // namespace server2

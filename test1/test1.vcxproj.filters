@@ -43,6 +43,9 @@
     <ClCompile Include="mime_types.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="request.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="connection.hpp">

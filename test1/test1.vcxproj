@@ -95,6 +95,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mime_types.cpp" />
     <ClCompile Include="reply.cpp" />
+    <ClCompile Include="request.cpp" />
     <ClCompile Include="request_handler.cpp" />
     <ClCompile Include="request_parser.cpp" />
     <ClCompile Include="server.cpp" />
