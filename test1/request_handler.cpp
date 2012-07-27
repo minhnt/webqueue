@@ -121,5 +121,91 @@ namespace http {
 			return true;
 		}
 
+		bool request_handler::url_decode(std::string& encodeString)
+		{
+			std::string out;			
+			//return url_decode(encodeString, out);
+			bool result = url_decode(encodeString, out);
+			//std::cout<<"\n encoded string: "<<encodeString<<"\tdecoded String: "<<out;
+			encodeString = out;
+			return result;
+		}
+
+
+		bool request_handler::uri_process(std::string& iString, std::vector<parameter>& parameters){
+
+			//Bo dau / o dau uri
+			if(iString[0] = '/')
+				iString = iString.substr(1,iString.length());
+
+			//Luu tru cac parameter bao gom: name (ten parameter), value (gia tri cua parameter)
+			//Mang chua decode cac parameter
+			std::vector<parameter> e_parameters;
+			//Mang cac parameter (da decode)
+
+			//Chia theo method bang dau ?
+			std::vector<std::string> tempVector;
+			splitWithouEmpty(iString,'?',tempVector);
+
+
+			if(tempVector.size() > 0)
+			{
+				parameter temp_para;
+				temp_para.name = "method_resource";
+				temp_para.value = tempVector[0];
+				e_parameters.push_back(temp_para);
+			}
+
+			//Chia theo parameter bang dau &
+			if(tempVector.size() > 1){
+				std::string paraString = tempVector[1];
+				tempVector.clear();
+				splitWithouEmpty(paraString, '&', tempVector);
+
+				std::cout<<"\n\n----------\nSau khi chia theo &\n-----------\n";
+				
+				for(int i= 0; i < tempVector.size(); i++)
+				{
+					std::string para = tempVector[i];
+					std::vector<std::string> paraVector;
+
+					//Lay thong tin parameter bao gom name va value ngan cach boi dau =
+					splitWithouEmpty(para, '=', paraVector);
+					if(paraVector.size() != 2)
+					{
+						return false;
+					}
+					else
+					{
+						//e_parameters.insert(std::pair<std::string, std::string>(paraVector[0], paraVector[1]));
+						parameter temp_para;
+						temp_para.name = paraVector[0];
+						temp_para.value = paraVector[1];
+						e_parameters.push_back(temp_para);
+					}
+				}
+			}
+
+			
+
+			//decode parameters:
+			for(std::vector<parameter>::iterator p = e_parameters.begin(); p != e_parameters.end(); ++p)
+			{
+				std::string paraName = p->name;
+				if(!url_decode(paraName))
+					return false;		
+
+				std::string paraValue = p->value;
+				if(!url_decode(paraValue))
+					return false;	
+				parameter para;
+				para.name = paraName;
+				para.value = paraValue;
+				parameters.push_back(para);
+			}
+			
+		}
+
+
 	} // namespace server3
 } // namespace http

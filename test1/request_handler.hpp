@@ -49,6 +49,27 @@ namespace http {
 			/// Perform URL-decoding on a string. Returns false if the encoding was
 			/// invalid.
 			static bool url_decode(const std::string& in, std::string& out);
+			//
+			bool url_decode(std::string& encodeString);
+
+			///chia string s thanh cac substring ngan cach boi ky tu c vao vector v
+			void splitWithouEmpty(const std::string& s, char c,
+				std::vector<std::string>& v) {
+					std::string::size_type i = 0;
+					std::string::size_type j = s.find(c);
+
+					while (j != std::string::npos) {
+						if(i!=j){
+							v.push_back(s.substr(i, j-i));
+						}
+						i = ++j;
+						j = s.find(c, j);
+
+						if (j == std::string::npos){
+							v.push_back(s.substr(i, s.length( )));
+						}
+					}
+			}
 		};
 
 	} // namespace server3
