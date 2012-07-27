@@ -18,7 +18,7 @@
 #include "request.hpp"
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
 		request_handler::request_handler(const std::string& doc_root)
 			: doc_root_(doc_root)
@@ -27,6 +27,9 @@ namespace http {
 
 		void request_handler::handle_request(const request& req, reply& rep)
 		{
+
+			// process uri
+
 			// Decode url to path.
 			std::string request_path;
 			if (!url_decode(req.uri, request_path))
@@ -118,5 +121,5 @@ namespace http {
 			return true;
 		}
 
-	} // namespace server2
+	} // namespace server3
 } // namespace http

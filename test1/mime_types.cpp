@@ -11,7 +11,7 @@
 #include "mime_types.hpp"
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 		namespace mime_types {
 
 			struct mapping
@@ -42,5 +42,5 @@ namespace http {
 			}
 
 		} // namespace mime_types
-	} // namespace server2
+	} // namespace server3
 } // namespace http
