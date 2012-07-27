@@ -1,4 +1,4 @@
-	//
+//
 // reply.hpp
 // ~~~~~~~~~
 //
@@ -8,8 +8,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_SERVER2_REPLY_HPP
-#define HTTP_SERVER2_REPLY_HPP
+#ifndef HTTP_SERVER3_REPLY_HPP
+#define HTTP_SERVER3_REPLY_HPP
 
 #include <string>
 #include <vector>
@@ -17,7 +17,7 @@
 #include "header.hpp"
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
 		/// A reply to be sent to a client.
 		struct reply
@@ -56,9 +56,12 @@ namespace http {
 
 			/// Get a stock reply.
 			static reply stock_reply(status_type status);
+
+			bool add_header(const std::string name_, const std::string value_);
+
 		};
 
-	} // namespace server2
+	} // namespace server3
 } // namespace http
 
-#endif // HTTP_SERVER2_REPLY_HPP
+#endif // HTTP_SERVER3_REPLY_HPP

@@ -91,7 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="connection.cpp" />
-    <ClCompile Include="io_service_pool.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mime_types.cpp" />
     <ClCompile Include="reply.cpp" />
@@ -103,7 +102,6 @@
   <ItemGroup>
     <ClInclude Include="connection.hpp" />
     <ClInclude Include="header.hpp" />
-    <ClInclude Include="io_service_pool.hpp" />
     <ClInclude Include="mime_types.hpp" />
     <ClInclude Include="reply.hpp" />
     <ClInclude Include="request.hpp" />

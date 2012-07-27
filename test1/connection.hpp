@@ -6,10 +6,10 @@
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-// erwer
+//
 
-#ifndef HTTP_SERVER2_CONNECTION_HPP
-#define HTTP_SERVER2_CONNECTION_HPP
+#ifndef HTTP_SERVER3_CONNECTION_HPP
+#define HTTP_SERVER3_CONNECTION_HPP
 
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
@@ -22,8 +22,8 @@
 #include "request_parser.hpp"
 
 namespace http {
-	namespace server2 {
-		/// Hello sdfds sdfgvdfgdggsdfgvgbgberg wergerg 
+	namespace server3 {
+
 		/// Represents a single connection from a client.
 		class connection
 			: public boost::enable_shared_from_this<connection>,
@@ -39,14 +39,26 @@ namespace http {
 
 			/// Start the first asynchronous operation for the connection.
 			void start();
+			
+			static int num_connection;
 
 		private:
 			/// Handle completion of a read operation.
 			void handle_read(const boost::system::error_code& e,
 				std::size_t bytes_transferred);
+			
+			void reset_timer();
 
 			/// Handle completion of a write operation.
 			void handle_write(const boost::system::error_code& e);
+
+			/// Handle for stop connection.
+			void handle_stop(const boost::system::error_code& e);
+
+			void stop();
+
+			/// Strand to ensure the connection's handlers are not called concurrently.
+			boost::asio::io_service::strand strand_;
 
 			/// Socket for the connection.
 			boost::asio::ip::tcp::socket socket_;
@@ -65,11 +77,17 @@ namespace http {
 
 			/// The reply to be sent back to the client.
 			reply reply_;
+
+			/// timer for ending connection after timeout.
+			boost::asio::deadline_timer timer_;
+
+			/// close connection after write response or not
+			bool close_;
 		};
 
 		typedef boost::shared_ptr<connection> connection_ptr;
 
-	} // namespace server2
+	} // namespace server3
 } // namespace http
 
-#endif // HTTP_SERVER2_CONNECTION_HPP
+#endif // HTTP_SERVER3_CONNECTION_HPP

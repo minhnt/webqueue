@@ -8,14 +8,14 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_SERVER2_REQUEST_PARSER_HPP
-#define HTTP_SERVER2_REQUEST_PARSER_HPP
+#ifndef HTTP_SERVER3_REQUEST_PARSER_HPP
+#define HTTP_SERVER3_REQUEST_PARSER_HPP
 
 #include <boost/logic/tribool.hpp>
 #include <boost/tuple/tuple.hpp>
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
 		struct request;
 
@@ -89,7 +89,7 @@ namespace http {
 			} state_;
 		};
 
-	} // namespace server2
+	} // namespace server3
 } // namespace http
 
-#endif // HTTP_SERVER2_REQUEST_PARSER_HPP
+#endif // HTTP_SERVER3_REQUEST_PARSER_HPP

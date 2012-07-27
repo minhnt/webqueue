@@ -8,15 +8,28 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_SERVER2_REQUEST_HPP
-#define HTTP_SERVER2_REQUEST_HPP
+#ifndef HTTP_SERVER3_REQUEST_HPP
+#define HTTP_SERVER3_REQUEST_HPP
 
 #include <string>
 #include <vector>
 #include "header.hpp"
+#include "parameter.hpp"
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
+
+		namespace request_headers
+		{
+			const std::string connection_header =
+				"Connection";
+		}
+		namespace request_values{
+			const std::string keep_alive_value =
+				"keep-alive";
+			const std::string close_value =
+				"close";
+		}
 
 		/// A request received from a client.
 		struct request
@@ -26,12 +39,14 @@ namespace http {
 			int http_version_major;
 			int http_version_minor;
 			std::vector<header> headers;
+			std::vector<parameter> parameters;
 
-			/// get value of header
-			bool get_header_value(const std::string header_name, std::string& header_value);
+			bool get_header_value(const std::string header_str, std::string& header_value_str);
+
 		};
 
-	} // namespace server2
+
+	} // namespace server3
 } // namespace http
 
-#endif // HTTP_SERVER2_REQUEST_HPP
+#endif // HTTP_SERVER3_REQUEST_HPP

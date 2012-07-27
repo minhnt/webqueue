@@ -8,15 +8,15 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-#ifndef HTTP_SERVER3_HEADER_HPP
-#define HTTP_SERVER3_HEADER_HPP
+#ifndef HTTP_SERVER3_PARAMETER_HPP
+#define HTTP_SERVER3_PARAMETER_HPP
 
 #include <string>
 
 namespace http {
 	namespace server3 {
 
-		struct header
+		struct parameter
 		{
 			std::string name;
 			std::string value;

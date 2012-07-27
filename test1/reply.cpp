@@ -13,7 +13,7 @@
 #include <boost/lexical_cast.hpp>
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
 		namespace status_strings {
 
@@ -252,5 +252,32 @@ namespace http {
 			return rep;
 		}
 
-	} // namespace server2
-} // namespace http
+		/// add a new header into replay
+		/// if this new header has existed in reply --> add into headers and then return false
+		/// otherwise --> return true
+		bool reply::add_header(const std::string name_, const std::string value_)
+		{
+			header header_temp;
+			bool existed = false;
+			std::vector<header>::iterator it;
+			
+			/// check existed
+			for ( it = headers.begin(); it < headers.end(); it++ )
+			{
+				if(it->name.compare(name_) == 0 )
+				{
+					existed = true;
+				}
+			}
+			if(!existed)
+			{
+				header_temp.name = name_;
+				header_temp.value = value_;
+				headers.push_back(header_temp);
+				return true;
+			}else{
+				return false;
+			}
+		}
+	} // namespace server3
+} // namespace http	

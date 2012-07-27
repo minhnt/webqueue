@@ -12,7 +12,7 @@
 #include "request.hpp"
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
 		request_parser::request_parser()
 			: state_(method_start)
@@ -311,5 +311,5 @@ namespace http {
 			return c >= '0' && c <= '9';
 		}
 
-	} // namespace server2
+	} // namespace server3
 } // namespace http

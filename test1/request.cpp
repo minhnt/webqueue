@@ -1,30 +1,33 @@
+//
+// reply.cpp
+// ~~~~~~~~~
+//
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+//
+// Distributed under the Boost Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+//
 
 #include "request.hpp"
 #include <string>
 #include <boost/lexical_cast.hpp>
 
 namespace http {
-	namespace server2 {
+	namespace server3 {
 
-		namespace request_string{
-			const std::string connection_header = 
-				"Connection";
-			const std::string connection_value =
-				"keep-alive";
-		}
-
-		bool request::get_header_value(const std::string header_name, std::string& header_value)
+		bool request::get_header_value(const std::string header_str, std::string& header_value_str)
 		{
 			std::vector<header>::iterator it;
-			for (it = headers.begin(); it < headers.end();it++)
+			for ( it = headers.begin(); it < headers.end(); it++ )
 			{
-				if((*it).name.compare(header_name))
+				if(it->name.compare(header_str) == 0 )
 				{
-					header_value = (*it).value;
+					header_value_str = it->value;
 					return true;
 				}
 			}
 			return false;
+
 		}
-	}
-}
+	} // namespace server3
+} // namespace http	
