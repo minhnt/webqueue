@@ -82,7 +82,10 @@ namespace http {
 			boost::asio::deadline_timer timer_;
 
 			/// close connection after write response or not
-			bool close_;
+			bool keep_alive_;
+
+			/// socket id
+			int soc_id;
 		};
 
 		typedef boost::shared_ptr<connection> connection_ptr;

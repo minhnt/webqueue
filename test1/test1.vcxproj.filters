@@ -69,5 +69,8 @@
     <ClInclude Include="mime_types.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parameter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -43,6 +43,12 @@ namespace http {
 
 			bool get_header_value(const std::string header_str, std::string& header_value_str);
 
+			//input: the name of one header parameter in the request
+			//process: loop over the parameter vectors and compare to this string
+			//out: true if one of the header parameter contain this business key
+			//	   false if otherwise
+			bool check_business(const std::string business_key);
+
 		};
 
 

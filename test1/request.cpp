@@ -29,5 +29,18 @@ namespace http {
 			return false;
 
 		}
+
+		bool request::check_business(const std::string business_key)
+		{
+			std::vector<parameter>::iterator it;
+			size_t found;
+			for ( it = parameters.begin(); it < parameters.end(); it++ )
+			{
+				found = it->name.find(business_key);
+				if(found != std::string::npos)
+					return true;
+			}
+			return false;
+		}
 	} // namespace server3
 } // namespace http	

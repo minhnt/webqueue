@@ -14,9 +14,37 @@
 #include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
 #include "server.hpp"
+#include "xercesc/dom/DOM.hpp"
+#include <xercesc/parsers/XercesDOMParser.hpp>
+#include <xercesc/dom/DOM.hpp>
+#include <xercesc/sax/HandlerBase.hpp>
+#include <xercesc/util/XMLString.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#include <lua.hpp>
+
+
+
+using namespace xercesc;
+using namespace std;
 
 int main(int argc, char* argv[])
 {
+	/* the Lua interpreter */
+	lua_State* L;
+
+	/* initialize Lua */
+	L = lua_open();
+
+	/* load Lua base libraries */
+	luaL_openlibs(L);
+
+	/* run the script */
+	luaL_dofile(L, "Lua/test.lua");
+
+	/* cleanup Lua */
+	lua_close(L);
+	
+	std::cout << "hello";
 	try
 	{
 		// Check command line arguments.
@@ -42,5 +70,6 @@ int main(int argc, char* argv[])
 		std::cerr << "exception: " << e.what() << "\n";
 	}
 
+	getchar();
 	return 0;
 }

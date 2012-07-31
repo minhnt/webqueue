@@ -19,16 +19,23 @@
 
 namespace http {
 	namespace server3 {
+		
+		std::string business_key = "adm";
 
 		request_handler::request_handler(const std::string& doc_root)
 			: doc_root_(doc_root)
 		{
 		}
 
-		void request_handler::handle_request(const request& req, reply& rep)
+		void request_handler::handle_request(request& req, reply& rep)
 		{
 
-			// process uri
+			// parsing url into parameter and its corresponding value
+			uri_process(req.uri,req.parameters);
+
+			if(req.check_business(business_key)){
+				std::cout << "Found business adm";
+			}
 
 			// Decode url to path.
 			std::string request_path;
