@@ -16,6 +16,9 @@
 #include "header.hpp"
 #include "parameter.hpp"
 
+#define MAX_REQUEST_SIZE 1000
+#define MAX_REQUEST_QUEUE 10000
+
 namespace http {
 	namespace server3 {
 
@@ -30,7 +33,6 @@ namespace http {
 			const std::string close_value =
 				"close";
 		}
-
 		/// A request received from a client.
 		struct request
 		{

@@ -13,6 +13,7 @@
 
 #include <boost/asio.hpp>
 #include <boost/array.hpp>
+#include <boost/bind.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
@@ -68,6 +69,7 @@ namespace http {
 
 			/// Buffer for incoming data.
 			boost::array<char, 8192> buffer_;
+			boost::asio::streambuf request_buffer_;
 
 			/// The incoming request.
 			request request_;

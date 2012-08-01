@@ -39,11 +39,12 @@ namespace http {
 		void connection::start()
 		{
 			/// std::cout << "\nStart socket: " <<soc_id;
-			socket_.async_read_some(boost::asio::buffer(buffer_),
+			boost::asio::async_read_until(socket_, request_buffer_, "\r\n",
 				strand_.wrap(
-					boost::bind(&connection::handle_read, shared_from_this(),
-					boost::asio::placeholders::error,
-					boost::asio::placeholders::bytes_transferred)));
+				boost::bind(&connection::handle_read, shared_from_this(),
+				boost::asio::placeholders::error,
+				boost::asio::placeholders::bytes_transferred)));
+
 
 			/// shutdown connection if there's not request after timeout.
 			timer_.expires_from_now(boost::posix_time::seconds(time_out));
@@ -54,76 +55,28 @@ namespace http {
 		}
 
 		/// handler for processing data from socket.
-		void connection::handle_read(const boost::system::error_code& e,
-			std::size_t bytes_transferred)
+		void connection::handle_read(const boost::system::error_code& e, std::size_t bytes_transferred)
 		{
-			std::cout << "\n Receive data from socket: " <<soc_id;
 			std::string connection_value_str;
 			if (!e)
 			{
-				boost::tribool result;
-				boost::tie(result, boost::tuples::ignore) = request_parser_.parse(
-					request_, buffer_.data(), buffer_.data() + bytes_transferred);
+				keep_alive_ = true;
+				reply_ = reply::stock_reply(reply::bad_request);
+				reply_.add_header(request_headers::connection_header, request_values::close_value);
 
-				if (result)
-				{
-					/// std::cout << "\nGood request to socket: " <<soc_id;
-
-					// if this request contains keep-alive connection:token --> start timer expire after 10s 
-					if(request_.get_header_value(request_headers::connection_header, connection_value_str))
-					{
-						
-						if(connection_value_str.compare(request_values::keep_alive_value)==0)
-						{
-							/// if connection header == keep-alive 
-							/// ==> Do not close connection.
-							keep_alive_ = true; 
-						/// if connection == close|anything else --> close connection and connection:close to the response
-						}else{
-							keep_alive_ = false;
-						}
-					}else{
-					/// if there's no connection header --> close connection after response.
-						keep_alive_ = false;
-					}
-
-					if(!keep_alive_)
-					{
-						reply_.add_header(request_headers::connection_header, request_values::close_value);
-					}
-
-					/// prepare replay for this request
-					request_handler_.handle_request(request_, reply_);
-
-					/// response to the client
-					boost::asio::async_write(socket_, reply_.to_buffers(),
-						strand_.wrap(
-						boost::bind(&connection::handle_write, shared_from_this(),
-						boost::asio::placeholders::error)));
-				}
-				else if (!result)
-				{
-					/// if bad request ==> add connection:close header ==> resonse and then stop connection.
-					keep_alive_ = false;
-					reply_ = reply::stock_reply(reply::bad_request);
-					reply_.add_header(request_headers::connection_header, request_values::close_value);
-					
-					boost::asio::async_write(socket_, reply_.to_buffers(),
-						strand_.wrap(
-						boost::bind(&connection::handle_write, shared_from_this(),
-						boost::asio::placeholders::error)));
-					
-				}
-				else
-				{
-					std::cout << "\nUndefined";
-					socket_.async_read_some(boost::asio::buffer(buffer_),
-						strand_.wrap(
-						boost::bind(&connection::handle_read, shared_from_this(),
-						boost::asio::placeholders::error,
-						boost::asio::placeholders::bytes_transferred)));
+				//send buffer to Minh
+				if(bytes_transferred <= MAX_REQUEST_SIZE){
+					std::cout << "\n Receive data from socket: " <<soc_id << " size: " <<bytes_transferred;
+					boost::asio::streambuf::const_buffers_type buffs = request_buffer_.data();
+					std::string line(boost::asio::buffers_begin(buffs),boost::asio::buffers_end(buffs)+ bytes_transferred);
+					request_handler_.enqueue(line,bytes_transferred);
 				}
 
+				/// response to the client
+				boost::asio::async_write(socket_, reply_.to_buffers(),
+					strand_.wrap(
+					boost::bind(&connection::handle_write, shared_from_this(),
+					boost::asio::placeholders::error)));
 
 			}else{
 			// If an error occurs then no new asynchronous operations are started. This
@@ -139,8 +92,6 @@ namespace http {
 			//if no error and no demand for closing connection.
 			if (!e && keep_alive_)
 			{
-				std::cout <<"\nWrite successfully to socket: " << soc_id;
-				
 				/// reset parse state and replay
 				request_parser_.reset();
 
@@ -155,7 +106,7 @@ namespace http {
 
 				/// size_t size_ = socket_.available();
 				/// std::cout << "\n Number of byte in socket "<< soc_id << " = " << size_;
-				socket_.async_read_some(boost::asio::buffer(buffer_),
+				boost::asio::async_read_until(socket_, request_buffer_, "\r\n",
 					strand_.wrap(
 					boost::bind(&connection::handle_read, shared_from_this(),
 					boost::asio::placeholders::error,
@@ -179,10 +130,10 @@ namespace http {
 			// deadline before this actor had a chance to run.
 			if(e == boost::asio::error::operation_aborted)
 			{
-				std::cout << "\n Handle stop was canceled: "<<e.message();
+				//std::cout << "\n Handle stop was canceled: "<<e.message();
 			}else
 			{
-				std::cout << "\n Handle was expired: " <<e.message();
+				//std::cout << "\n Handle was expired: " <<e.message();
 				// The deadline has passed. The socket is closed so that any outstanding
 				// asynchronous operations are canceled.
 				// Initiate graceful connection closure.

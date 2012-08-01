@@ -14,7 +14,12 @@
 #include <string>
 #include <vector>
 #include <boost/noncopyable.hpp>
+#include <boost/asio.hpp>
+#include <boost/interprocess/ipc/message_queue.hpp>
 #include "parameter.hpp"
+
+using namespace boost::interprocess;
+
 namespace http {
 	namespace server3 {
 
@@ -32,9 +37,13 @@ namespace http {
 			/// Handle a request and produce a reply.
 			void handle_request(request& req, reply& rep);
 
+			void enqueue(std::string& str, std::size_t size_);
+
 		private:
 			/// The directory containing the files to be served.
 			std::string doc_root_;
+
+			message_queue* request_queue_ptr;
 
 			/// input: 
 			///		iString: request.uri

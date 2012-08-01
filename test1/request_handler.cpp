@@ -25,16 +25,25 @@ namespace http {
 		request_handler::request_handler(const std::string& doc_root)
 			: doc_root_(doc_root)
 		{
+			//request_queue_ptr = new message_queue(create_only,"request_queue",MAX_REQUEST_QUEUE, MAX_REQUEST_SIZE);
 		}
 
+		void request_handler::enqueue(std::string& str, std::size_t size_)
+		{
+			std::cout << "\nStarting enqueue with size: " << size_;
+
+		}
 		void request_handler::handle_request(request& req, reply& rep)
 		{
 
 			// parsing url into parameter and its corresponding value
 			uri_process(req.uri,req.parameters);
 
+			std::cout << "\nEnqueue successfully!";
+
 			if(req.check_business(business_key)){
 				std::cout << "Found business adm";
+
 			}
 
 			// Decode url to path.
@@ -210,9 +219,6 @@ namespace http {
 				para.value = paraValue;
 				parameters.push_back(para);
 			}
-			
-		}
-
-
+		}//END URI_Process
 	} // namespace server3
 } // namespace http

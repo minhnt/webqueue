@@ -72,5 +72,11 @@
     <ClInclude Include="parameter.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lua_interface.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="request_queue.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

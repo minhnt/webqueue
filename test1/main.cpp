@@ -29,20 +29,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	/* the Lua interpreter */
-	lua_State* L;
-
-	/* initialize Lua */
-	L = lua_open();
-
-	/* load Lua base libraries */
-	luaL_openlibs(L);
-
-	/* run the script */
-	luaL_dofile(L, "Lua/test.lua");
-
-	/* cleanup Lua */
-	lua_close(L);
 	
 	std::cout << "hello";
 	try

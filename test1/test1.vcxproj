@@ -103,12 +103,14 @@
   <ItemGroup>
     <ClInclude Include="connection.hpp" />
     <ClInclude Include="header.hpp" />
+    <ClInclude Include="lua_interface.hpp" />
     <ClInclude Include="mime_types.hpp" />
     <ClInclude Include="parameter.hpp" />
     <ClInclude Include="reply.hpp" />
     <ClInclude Include="request.hpp" />
     <ClInclude Include="request_handler.hpp" />
     <ClInclude Include="request_parser.hpp" />
+    <ClInclude Include="request_queue.hpp" />
     <ClInclude Include="server.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
